@@ -9,6 +9,11 @@ TILE_SIZE = 20
 WINDOW_WIDTH = TILE_SIZE * ROWS
 WINDOW_HEIGHT = TILE_SIZE * COLS
 
+class Tile:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
 #game window
 window = tkinter.Tk()
 window.title("Snake")
@@ -29,5 +34,69 @@ window_y = int((screen_height /2)- (window_height/2))
 
 window.geometry(f"{window_width}x{window_height}+{window_x}+{window_y}")
 
+#initialize the game
+snake = Tile(5*TILE_SIZE, 5*TILE_SIZE)
+food = Tile(10*TILE_SIZE, 10*TILE_SIZE)
+snake_body = [] #multiple snake tiles
+velocityX = 0
+velocityY = 0
+
+def change_direction(e):
+    global velocityX, velocityY
+    if (e.keysym == "Up" and velocityY != 1):
+        velocityX = 0 
+        velocityY = -1
+    elif (e.keysym == "Down" and velocityY != -1):
+        velocityX = 0 
+        velocityY = 1
+    elif (e.keysym == "Left" and velocityX != 1):
+        velocityX = -1  
+        velocityY = 0
+    elif (e.keysym == "Right" and velocityX != -1):
+        velocityX = 1
+        velocityY = 0
+ 
+def move():
+    global snake
+
+    #collision
+    if(snake.x == food.x and snake.y == food.y):
+        snake_body.append(Tile(food.x, food.y))
+        food.x = random.randint(0, COLS-1) * TILE_SIZE
+        food.y = random.randint(0, ROWS-1) * TILE_SIZE
+    
+    #Update snake body
+    for i in range(len(snake_body)-1, -1, -1):
+        tile = snake_body[i]
+        if (i == 0):
+            tile.x = snake.x
+            tile.y = snake.y
+        else:
+            prev_tile = snake_body[i-1]
+            tile.x = prev_tile.x
+            tile.y = prev_tile.y
+
+    snake.x += velocityX * TILE_SIZE
+    snake.y += velocityY * TILE_SIZE
+
+def draw():
+    global snake
+    move()
+
+    canvas.delete("all")
+
+    #draw food
+    canvas.create_rectangle(food.x, food.y, food.x + TILE_SIZE, food.y + TILE_SIZE, fill="pink")
+
+    #draw snake
+    canvas.create_rectangle(snake.x, snake.y, snake.x + TILE_SIZE, snake.y + TILE_SIZE, fill="cyan")
+
+    for tile in snake_body:
+        canvas.create_rectangle(tile.x, tile.y, tile.x + TILE_SIZE, tile.y + TILE_SIZE, fill="cyan")
+
+    window.after(100, draw) #100ms = 1/10 second, 10 frames/second
+draw()
+
+window.bind("<KeyRelease>", change_direction)
 
 window.mainloop()
