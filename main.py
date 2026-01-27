@@ -41,6 +41,7 @@ snake_body = [] #multiple snake tiles
 velocityX = 0
 velocityY = 0
 game_over = False
+score = 0
 
 def change_direction(e):
     global velocityX, velocityY, game_over
@@ -61,7 +62,7 @@ def change_direction(e):
         velocityY = 0
  
 def move():
-    global snake, food, snake_body, game_over
+    global snake, food, snake_body, game_over, score
     if (game_over):
         return
     
@@ -79,6 +80,7 @@ def move():
         snake_body.append(Tile(food.x, food.y))
         food.x = random.randint(0, COLS-1) * TILE_SIZE
         food.y = random.randint(0, ROWS-1) * TILE_SIZE
+        score += 1
     
     #Update snake body
     for i in range(len(snake_body)-1, -1, -1):
@@ -95,7 +97,7 @@ def move():
     snake.y += velocityY * TILE_SIZE
 
 def draw():
-    global snake
+    global snake, food, snake_body, game_over, score
     move()
 
     canvas.delete("all")
@@ -109,9 +111,16 @@ def draw():
     for tile in snake_body:
         canvas.create_rectangle(tile.x, tile.y, tile.x + TILE_SIZE, tile.y + TILE_SIZE, fill="cyan")
 
+    if (game_over):
+        canvas.create_text(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, font = "Arial 20", text = f"Game Over: {score}", fill = "white")
+    else:
+        canvas.create_text(50, 20, font = "Arial 10", text = f"Score: {score}", fill = "white")
+
     window.after(100, draw) #100ms = 1/10 second, 10 frames/second
 draw()
 
 window.bind("<KeyRelease>", change_direction)
 
 window.mainloop()
+
+# next implement backspace to restart
