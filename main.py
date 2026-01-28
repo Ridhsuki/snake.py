@@ -43,8 +43,25 @@ velocityY = 0
 game_over = False
 score = 0
 
+def reset_game():
+    global snake, food, snake_body, velocityX, velocityY, game_over, score
+
+    snake = Tile(5*TILE_SIZE, 5*TILE_SIZE)
+    food = Tile(10*TILE_SIZE, 10*TILE_SIZE)
+    snake_body = []
+
+    velocityX = 0
+    velocityY = 0
+    game_over = False
+    score = 0
+
 def change_direction(e):
     global velocityX, velocityY, game_over
+
+    if game_over and e.keysym == "space":
+        reset_game()
+        return
+
     if (game_over):
         return
 
@@ -112,7 +129,9 @@ def draw():
         canvas.create_rectangle(tile.x, tile.y, tile.x + TILE_SIZE, tile.y + TILE_SIZE, fill="cyan")
 
     if (game_over):
-        canvas.create_text(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, font = "Arial 20", text = f"Game Over: {score}", fill = "white")
+        canvas.create_text(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - 50, text="GAME OVER", fill="white", font=("Arial", 24, "bold"))
+        canvas.create_text(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, text = f"Score: {score}", fill = "light gray", font = ("Arial", 14, "bold"))
+        canvas.create_text(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 + 35, text = "Press SPACE to Restart", fill = "gray", font = ("Arial", 10))
     else:
         canvas.create_text(50, 20, font = "Arial 10", text = f"Score: {score}", fill = "white")
 
@@ -122,5 +141,3 @@ draw()
 window.bind("<KeyRelease>", change_direction)
 
 window.mainloop()
-
-# next implement backspace to restart
