@@ -32,10 +32,10 @@ Press **SPACE** to restart after game over.
 
  <br>
   <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-items: center;" align="center">
-       <img width="333" alt="Image" src="https://github.com/user-attachments/assets/83801f99-e87d-490f-8867-68b3a63ecdf5" />
-       <img width="333" alt="Image" src="https://github.com/user-attachments/assets/afa4ffd5-8d13-407c-8410-4cef98ad0378" />
-       <img width="333" alt="Image" src="https://github.com/user-attachments/assets/f0a052d6-a490-42b9-ba93-d25a4ffab4f5" />
-       <img width="333" alt="Image" src="https://github.com/user-attachments/assets/a7e02ee9-6ae3-45c8-8b3e-991bccc77afd" />
+       <img width="333" alt="Image" src="https://res.cloudinary.com/dv8jmnzaf/image/upload/v1769650939/Screenshot_From_2026-01-28_12-07-14_fcwqjs.png" />
+       <img width="333" alt="Image" src="https://res.cloudinary.com/dv8jmnzaf/image/upload/v1769650939/Screenshot_From_2026-01-28_12-06-33_lm1gxr.png" />
+       <img width="333" alt="Image" src="https://res.cloudinary.com/dv8jmnzaf/image/upload/v1769650940/Screenshot_From_2026-01-28_12-11-47_sjv9di.png" />
+       <img width="333" alt="Image" src="https://res.cloudinary.com/dv8jmnzaf/image/upload/v1769650940/Screenshot_From_2026-01-28_12-10-00_em2rqw.png" />
   </div>
  <br>
 
